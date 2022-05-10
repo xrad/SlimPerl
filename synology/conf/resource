@@ -1,0 +1,6 @@
+{
+    "usr-local-linker": {
+        "bin": ["usr/local/bin/perl"],
+        "lib": ["usr/local/lib/perl5"]
+    }
+}

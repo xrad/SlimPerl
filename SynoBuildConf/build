@@ -1,0 +1,53 @@
+#!/bin/bash
+# Copyright (C) 2000-2020 Synology Inc. All rights reserved.
+
+case ${MakeClean} in
+	[Yy][Ee][Ss])
+		make clean
+		;;
+esac
+
+PERLVERSION=5.28.3
+
+if [ ! -f perl-$PERLVERSION.tar.gz ]; then
+	./download.sh
+fi
+
+tar xf perl-$PERLVERSION.tar.gz
+tar xf perl-cross-1.3.7.tar.gz
+
+cd perl-$PERLVERSION
+
+tar -C ../perl-cross-1.3.7 -cf - . | tar -xf -
+rm -rf ../perl-cross-1.3.7
+
+tar xf ../IO-Socket-SSL-2.074.tar.gz
+tar xf ../Mozilla-CA-20211001.tar.gz
+tar xf ../Net-SSLeay-1.92.tar.gz
+tar xf ../URI-5.10.tar.gz
+
+patch -p1 <../patches/0001-perl-${PERLVERSION}-no-error-declaration-after-statement.patch
+(cd Net-SSLeay-1.92
+ patch -p1 < ../../patches/0001-net-ssleay-remove-english-dep.patch
+ patch -p1 < ../../patches/0001-net-ssleay-no-cross-libdir.patch
+)
+
+mv URI-5.10 ext/URI
+mv IO-Socket-SSL-2.074 ext/IO-Socket-SSL
+mv Mozilla-CA-20211001 ext/.
+mv Net-SSLeay-1.92 ext/Net-SSLeay
+
+OBJDUMP=${ToolChainDir}/bin/${HOST}-objdump
+
+JOBS=$(nproc)
+
+env CC="${CC}" CXX="${CXX}" LD="${LD}" AR=${AR} STRIP=${STRIP} \
+	RANLIB=${RANLIB} NM=${NM} READELF=${READELF} OBJDUMP=${OBJDUMP} \
+	CFLAGS="${CFLAGS}" CXXFLAGS="$CXXFLAGS $CFLAGS" LDFLAGS="${LDFLAGS}" \
+	./configure ${ConfigOpt} \
+	-Dusethreads \
+	-Duse64bitint \
+	-Darchname=${ARCH}-linux-gnueabihf-thread-multi-64int \
+	--prefix=/usr/local
+make crosspatch
+(yes n | make -j$JOBS all) || true

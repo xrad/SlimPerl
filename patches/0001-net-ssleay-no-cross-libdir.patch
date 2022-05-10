@@ -1,0 +1,16 @@
+diff --git a/Makefile.PL b/Makefile.PL
+index dc058ff..531687f 100644
+--- a/Makefile.PL
++++ b/Makefile.PL
+@@ -225,7 +225,7 @@ sub ssleay_get_build_opts {
+     # phase fails.
+     my @try_lib_paths = (
+ 	["$prefix/lib64", "$prefix/lib", "$prefix/out32dll", $prefix] => sub {$OSNAME eq 'darwin' },
+-	[$prefix, "$prefix/lib64", "$prefix/lib", "$prefix/out32dll"] => sub { 1 },
++#	[$prefix, "$prefix/lib64", "$prefix/lib", "$prefix/out32dll"] => sub { 1 },
+ 	);
+ 
+     while (
+-- 
+2.17.1
+

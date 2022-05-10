@@ -1,0 +1,23 @@
+diff --git a/cflags.SH b/cflags.SH
+index a50044e..a6304f9 100755
+--- a/cflags.SH
++++ b/cflags.SH
+@@ -187,7 +187,6 @@ Intel*) ;; # # Is that you, Intel C++?
+ # -pedantic* before -Werror=d-a-s
+ #
+ *)  for opt in -std=c89 -ansi $pedantic \
+-		-Werror=declaration-after-statement \
+ 	        -Werror=pointer-arith \
+ 		-Wextra -W \
+ 		-Wc++-compat -Wwrite-strings
+@@ -354,7 +353,6 @@ case "$cc" in
+   # -Werror=d-a-s option is valid for g++, by definition,
+   # but we remove it just for cleanliness and shorter command lines.
+   for f in -Wdeclaration-after-statement \
+-		-Werror=declaration-after-statement \
+ 		-Wc++-compat \
+ 		-std=c89
+   do
+-- 
+2.17.1
+

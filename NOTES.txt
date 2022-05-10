@@ -1,0 +1,3 @@
+Build:
+
+sudo ./PkgCreate.py -v 6.2 -p armada375 -c slim -S

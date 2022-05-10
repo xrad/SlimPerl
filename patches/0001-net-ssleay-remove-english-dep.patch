@@ -1,0 +1,35 @@
+diff --git a/Makefile.PL b/Makefile.PL
+index dc058ff..1380283 100644
+--- a/Makefile.PL
++++ b/Makefile.PL
+@@ -4,7 +4,8 @@ use strict;
+ use warnings;
+ 
+ use Config;
+-use English qw( $OSNAME -no_match_vars );
++my $OSNAME = "linux";
++# use English qw( $OSNAME -no_match_vars );
+ use ExtUtils::MakeMaker;
+ use File::Basename ();
+ use File::Spec;
+@@ -49,7 +50,7 @@ my %eumm_args = (
+   VERSION_FROM => 'lib/Net/SSLeay.pm',
+   MIN_PERL_VERSION => '5.8.1',
+   CONFIGURE_REQUIRES => {
+-    'English' => '0',
++#    'English' => '0',
+     'ExtUtils::MakeMaker' => '0',
+     'File::Spec::Functions' => '0',
+     'Text::Wrap' => '0',
+@@ -59,7 +60,7 @@ my %eumm_args = (
+     'Carp' => '0',
+     'Config' => '0',
+     'Cwd' => '0',
+-    'English' => '0',
++#    'English' => '0',
+     'File::Basename' => '0',
+     'File::Spec::Functions' => '0',
+     'Scalar::Util' => '0',
+-- 
+2.17.1
+
