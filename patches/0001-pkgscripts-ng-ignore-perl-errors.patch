@@ -1,0 +1,17 @@
+sudo ./EnvDeploy -v 7.0 -p armada375
+sudo ./PkgCreate.py -p armada375 -c SlimPerl 
+
+
+diff --git a/include/errors.py b/include/errors.py
+index 8b62db1..55e33b0 100755
+--- a/include/errors.py
++++ b/include/errors.py
+@@ -15,7 +15,7 @@ LOG_DIR = '/logs'
+ # "error_pattern": skip_list
+ BUILD_ERROR_CHECKLIST = {
+     "line.*syntax error": [],
+-    "Error": ['ignored', 'Error\.[c|o|h|cc|lo|Plo|js]', 'GPG Error', 'distclean'],
++    "Error": ['ignored', 'Error\.[c|o|h|cc|lo|Plo|js|pm]', 'GPG Error', 'distclean'],
+     "fatal error": [],
+     "missing separator": [],
+     "No rule to make target": ["clean", "distclean"],

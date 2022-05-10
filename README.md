@@ -1,12 +1,12 @@
 # SlimPerl
 A Perl package suitable for current Logitech Media Server versions running on ARM7 based Synology DiskStations.
 
-Synology's official Perl, currently offered in version 5.28.3) is not suitable to run 
-[Logitech Media Server](https://downloads.slimdevices.com/nightly/index.php?ver=8.2) -- a number of modules 
-remain unresolved. Since I could not get this workig I decided to take the plunge an compile it myself using 
+Synology's official Perl, currently offered in version 5.28.3) is not suitable to run
+[Logitech Media Server](https://downloads.slimdevices.com/nightly/index.php?ver=8.2) -- a number of modules
+remain unresolved. Since I could not get this workig I decided to take the plunge an compile it myself using
 [Perl-Cross](https://github.com/arsv/perl-cross).
 
-Up to DSM6 I used a Debian chroot environment packaged as SPK to run the stock Linux debian LMS. With DSM7 this 
+Up to DSM6 I used a Debian chroot environment packaged as SPK to run the stock Linux debian LMS. With DSM7 this
 is no longer an option since SPK cannot use root anymore, so I went for a more compliant option with a supporting Perl
 package and LMS.
 
@@ -36,6 +36,17 @@ sudo ./EnvDeploy -v 7.0 -p armada375
 
 You also need this little patch to stop the build script from reporting a bogus build error:
 ```
+--- a/include/errors.py
++++ b/include/errors.py
+@@ -15,7 +15,7 @@ LOG_DIR = '/logs'
+ # "error_pattern": skip_list
+ BUILD_ERROR_CHECKLIST = {
+     "line.*syntax error": [],
+-    "Error": ['ignored', 'Error\.[c|o|h|cc|lo|Plo|js]', 'GPG Error', 'distclean'],
++    "Error": ['ignored', 'Error\.[c|o|h|cc|lo|Plo|js|pm]', 'GPG Error', 'distclean'],
+     "fatal error": [],
+     "missing separator": [],
+     "No rule to make target": ["clean", "distclean"],
 ```
 
 Download sources:
